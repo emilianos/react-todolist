@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const endpoint = `https://jsonbox.io/box_${process.env.JSONBOX_KEY}`;
+const endpoint = `https://jsonbox.io/box_${process.env.REACT_APP_JSONBOX_KEY}`;
 
 const getAll = () => {
   // const test = axios.get(endpoint + "/todos?sort=_createdOn");

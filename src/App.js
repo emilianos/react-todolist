@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Todo from "./components/Todo";
 import Form from "./components/Form";
 import Title from "./components/Title";
+import Spinner from "./components/Spinner";
 import "./App.css";
 import api from "./api";
 
@@ -10,6 +11,7 @@ const App = () => {
   const [todos, setTodos] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [currentId, setCurrentId] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchTodos = async () => {
     const { status, data } = await api.todos.getAll();
@@ -24,11 +26,13 @@ const App = () => {
 
   const handleSubmit = async () => {
     if (inputValue === "") return;
+    setIsLoading(true);
     const newTodo = { text: inputValue };
     const { status } = await api.todos.create(newTodo);
     if (status === 200) {
       fetchTodos();
       setInputValue("");
+      setIsLoading(false);
     }
   };
 
@@ -53,14 +57,17 @@ const App = () => {
   };
 
   const handleDeleteTodo = async (id) => {
+    setIsLoading(true);
     const { status } = await api.todos.destroy(id);
     if (status === 200) {
       fetchTodos();
+      setIsLoading(false);
     }
   };
 
   return (
     <div className="app">
+      <Spinner isLoading={isLoading} />
       <div className="todolist">
         <Title myName="Emiliano" />
         <Form
@@ -69,6 +76,7 @@ const App = () => {
           handleSubmit={handleSubmit}
           handleUpdate={handleUpdate}
           isEditing={isEditing}
+          isLoading={isLoading}
         />
         {todos.map((todo, index) => (
           <Todo
@@ -76,6 +84,7 @@ const App = () => {
             index={index}
             handleEditTodo={handleEditTodo}
             handleDeleteTodo={handleDeleteTodo}
+            isLoading={isLoading}
             key={todo._id}
           />
         ))}

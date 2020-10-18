@@ -6,6 +6,7 @@ const Form = ({
   handleSubmit,
   handleUpdate,
   isEditing,
+  isLoading,
   todo
 }) => {
   return (
@@ -17,13 +18,19 @@ const Form = ({
         className="input"
         placeholder={"Type here..."}
       />
-      <button onClick={handleSubmit} className="submit" hidden={isEditing}>
+      <button
+        onClick={handleSubmit}
+        className="submit"
+        hidden={isEditing}
+        disabled={isLoading}
+      >
         Submit
       </button>
       <button
         onClick={() => handleUpdate(todo)}
         className="submit"
         hidden={!isEditing}
+        disabled={isLoading}
       >
         Update
       </button>

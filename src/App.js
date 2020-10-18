@@ -6,6 +6,14 @@ import Spinner from "./components/Spinner";
 import "./App.css";
 import api from "./api";
 
+/**
+ * @TODO
+ * 1. Add single button instead of two buttons
+ * 2. Add cancel button
+ * 3. useRef instead of html template
+ * 4. move db to firebase
+ */
+
 const App = () => {
   const [inputValue, setInputValue] = useState("");
   const [todos, setTodos] = useState([]);
@@ -14,9 +22,15 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchTodos = async () => {
-    const { status, data } = await api.todos.getAll();
-    if (status === 200) {
-      setTodos(data);
+    try {
+      const { status, data } = await api.todos.getAll();
+      if (status === 200) {
+        setTodos(data);
+        setInputValue("");
+        setIsEditing(false);
+      }
+    } catch (erorr) {
+      console.error(erorr);
     }
   };
 
@@ -44,8 +58,6 @@ const App = () => {
 
     if (status === 200) {
       fetchTodos();
-      setInputValue("");
-      setIsEditing(false);
     }
   };
 
@@ -64,6 +76,10 @@ const App = () => {
       setIsLoading(false);
     }
   };
+
+  // if (isLoading) {
+  //   return <Spinner isLoading={isLoading} />;
+  // }
 
   return (
     <div className="app">

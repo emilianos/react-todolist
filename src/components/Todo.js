@@ -7,7 +7,7 @@ const Todo = ({ todo, index, handleDeleteTodo, handleEditTodo, isLoading }) => {
         {index + 1}. {todo.text}
       </span>
       <span
-        onClick={!isLoading && (() => handleDeleteTodo(todo._id))}
+        onClick={!isLoading ? () => handleDeleteTodo(todo._id) : undefined}
         className="todo-delete"
       >
         ×

@@ -8,8 +8,7 @@ import api from "./api";
 
 /**
  * @TODO
- * 1. Add single button instead of two buttons
- * 2. move db to firebase
+ * 1. move db to firebase
  */
 
 const App = () => {

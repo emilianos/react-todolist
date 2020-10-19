@@ -26,20 +26,11 @@ const Form = ({
         </button>
       </div>
       <button
-        onClick={handleSubmit}
+        onClick={isEditing ? () => handleUpdate(todo) : handleSubmit}
         className="submit"
-        hidden={isEditing}
         disabled={isLoading}
       >
-        Submit
-      </button>
-      <button
-        onClick={() => handleUpdate(todo)}
-        className="submit"
-        hidden={!isEditing}
-        disabled={isLoading}
-      >
-        Update
+        {isEditing ? "Update" : "Submit"}
       </button>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Todo from "./components/Todo";
 import Form from "./components/Form";
 import Title from "./components/Title";
@@ -10,8 +10,7 @@ import api from "./api";
  * @TODO
  * 1. Add single button instead of two buttons
  * 2. Add cancel button
- * 3. useRef instead of html template
- * 4. move db to firebase
+ * 3. move db to firebase
  */
 
 const App = () => {
@@ -37,6 +36,8 @@ const App = () => {
   useEffect(() => {
     fetchTodos();
   }, []);
+
+  const inputRef = useRef(null);
 
   const handleSubmit = async () => {
     if (inputValue === "") return;
@@ -65,7 +66,7 @@ const App = () => {
     setIsEditing(true);
     setInputValue(todo.text);
     setCurrentId(todo._id);
-    document.getElementById("todoInput").focus();
+    inputRef.current.focus();
   };
 
   const handleDeleteTodo = async (id) => {
@@ -93,6 +94,7 @@ const App = () => {
           handleUpdate={handleUpdate}
           isEditing={isEditing}
           isLoading={isLoading}
+          inputRef={inputRef}
         />
         {todos.map((todo, index) => (
           <Todo

@@ -7,7 +7,8 @@ const Form = ({
   handleUpdate,
   isEditing,
   isLoading,
-  todo
+  todo,
+  inputRef
 }) => {
   return (
     <div className="form">
@@ -17,6 +18,7 @@ const Form = ({
         onChange={(e) => setInputValue(e.target.value)}
         className="input"
         placeholder={"Type here..."}
+        ref={inputRef}
       />
       <button
         onClick={handleSubmit}

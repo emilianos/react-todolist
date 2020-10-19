@@ -8,7 +8,8 @@ import api from "./api";
 
 /**
  * @TODO
- * 1. move db to firebase
+ * 1. move db to firebase:
+ * https://codesandbox.io/s/react-todolist-firebase-74rmg
  */
 
 const App = () => {
@@ -26,8 +27,8 @@ const App = () => {
         setInputValue("");
         setIsEditing(false);
       }
-    } catch (erorr) {
-      console.error(erorr);
+    } catch (error) {
+      console.error(error);
     }
   };
 

@@ -3,8 +3,6 @@ import axios from "axios";
 const endpoint = `https://jsonbox.io/box_${process.env.REACT_APP_JSONBOX_KEY}`;
 
 const getAll = () => {
-  // const test = axios.get(endpoint + "/todos?sort=_createdOn");
-  // console.log(test.response);
   return axios.get(endpoint + "/todos?sort=_createdOn");
 };
 

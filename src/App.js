@@ -9,8 +9,7 @@ import api from "./api";
 /**
  * @TODO
  * 1. Add single button instead of two buttons
- * 2. Add cancel button
- * 3. move db to firebase
+ * 2. move db to firebase
  */
 
 const App = () => {
@@ -52,13 +51,14 @@ const App = () => {
   };
 
   const handleUpdate = async () => {
-    console.log(currentId);
+    setIsLoading(true);
     if (inputValue === "") return;
     const updateTodo = { text: inputValue, id: currentId };
     const { status } = await api.todos.update(updateTodo);
 
     if (status === 200) {
       fetchTodos();
+      setIsLoading(false);
     }
   };
 
@@ -67,6 +67,11 @@ const App = () => {
     setInputValue(todo.text);
     setCurrentId(todo._id);
     inputRef.current.focus();
+  };
+
+  const handleCancel = () => {
+    setIsEditing(false);
+    setInputValue("");
   };
 
   const handleDeleteTodo = async (id) => {
@@ -90,11 +95,12 @@ const App = () => {
         <Form
           inputValue={inputValue}
           setInputValue={setInputValue}
+          inputRef={inputRef}
+          handleCancel={handleCancel}
           handleSubmit={handleSubmit}
           handleUpdate={handleUpdate}
           isEditing={isEditing}
           isLoading={isLoading}
-          inputRef={inputRef}
         />
         {todos.map((todo, index) => (
           <Todo
